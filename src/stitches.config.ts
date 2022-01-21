@@ -92,11 +92,10 @@ export const {
     },
   },
   media: {
-    phone: "(min-width: 37.438em)", // 599px
-    tablet_portrait: "(min-width: 37.5em)", // 600px
-    tablet_landscape: "(min-width: 56.26em)", // 900px
+    // default = phone
+    phone_large: "(min-width: 37.438em)", // 599px
+    tablet: "(min-width: 56.26em)", // 900px
     desktop: "(min-width: 75em)", // 1200px
-    desktop_big: "(min-width: 112.5em)", // 1800px
-    desktop_super_big: "(min-width: 150em)", // 2400px
+    desktop_large: "(min-width: 112.5em)", // 1800px
   },
 });
