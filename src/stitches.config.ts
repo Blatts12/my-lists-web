@@ -4,6 +4,7 @@ import {
   crimsonDark,
   grassDark,
   green,
+  indigo,
   indigoDark,
   yellowDark,
 } from "@radix-ui/colors";
@@ -22,6 +23,7 @@ export const {
     colors: {
       background: indigoDark.indigo1,
       text: indigoDark.indigo12,
+      textLight: indigo.indigo12,
 
       uiBackground: indigoDark.indigo3,
       uiBackgroundHover: indigoDark.indigo4,
