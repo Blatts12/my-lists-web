@@ -1,11 +1,19 @@
 import React from "react";
-import { Container } from "./components/common/Container";
+import { AppContainer, Container } from "./components/common/Container";
+import Navbar from "./components/navigation/Navbar";
 import globalStyles from "./globalStyles";
 
 const App: React.FC = () => {
   globalStyles();
 
-  return <Container></Container>;
+  return (
+    <>
+      <AppContainer>
+        <Navbar />
+        <Container></Container>
+      </AppContainer>
+    </>
+  );
 };
 
 export default App;

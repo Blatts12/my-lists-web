@@ -1,5 +1,13 @@
 import { styled } from "../../stitches.config";
 
+const AppContainer = styled("div", {
+  width: "100vw",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
 const Container = styled("div", {
   width: "100%",
   "@phone_large": {
@@ -16,4 +24,4 @@ const Container = styled("div", {
   },
 });
 
-export { Container };
+export { AppContainer, Container };
