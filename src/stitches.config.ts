@@ -1,4 +1,5 @@
 import {
+  blackA,
   blueDark,
   crimson,
   crimsonDark,
@@ -6,6 +7,7 @@ import {
   green,
   indigo,
   indigoDark,
+  whiteA,
   yellowDark,
 } from "@radix-ui/colors";
 import { createStitches } from "@stitches/react";
@@ -24,6 +26,9 @@ export const {
       background: indigoDark.indigo1,
       text: indigoDark.indigo12,
       textLight: indigo.indigo12,
+
+      overlayDark: blackA.blackA11,
+      overlayLight: whiteA.whiteA11,
 
       uiBackground: indigoDark.indigo3,
       uiBackgroundHover: indigoDark.indigo4,
