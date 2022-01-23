@@ -13,6 +13,26 @@ const Button = styled("button", {
   },
 
   variants: {
+    icon: {
+      true: {
+        padding: "0.375em",
+      },
+    },
+    circled: {
+      true: {
+        borderRadius: "100%",
+      },
+    },
+    noBackground: {
+      true: {
+        backgroundColor: "inherit",
+      },
+    },
+    noBorder: {
+      true: {
+        border: "none",
+      },
+    },
     boldText: {
       true: {
         fontWeight: "bold",
@@ -96,6 +116,27 @@ const Button = styled("button", {
       },
       xxxxl: {
         fontSize: "$xxxxl",
+      },
+    },
+  },
+});
+
+const IconButton = styled(Button, {
+  padding: "0.5em",
+  variants: {
+    circled: {
+      true: {
+        borderRadius: "100%",
+      },
+    },
+    noBackground: {
+      true: {
+        backgroundColor: "none",
+      },
+    },
+    noBorder: {
+      true: {
+        border: "none",
       },
     },
   },
