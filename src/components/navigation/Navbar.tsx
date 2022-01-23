@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "../../stitches.config";
+import useUiStore from "../../stores/UiStore";
 import { Container } from "../common/Container";
 import FullscreenMenu from "./FullscreenMenu";
 import NavMenu from "./NavMenu";
@@ -22,26 +23,13 @@ const NavContainer = styled(Container, {
   paddingInline: "0.75rem",
 });
 
-const getIsMoblie = () => window.innerWidth <= 600;
-
 const Navbar: React.FC = () => {
-  const [isMobile, setIsMobile] = useState<boolean>(getIsMoblie());
-
-  useEffect(() => {
-    const onResize = () => {
-      setIsMobile(getIsMoblie());
-    };
-
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
+  const isMobile = useUiStore((state) => state.isMobile);
 
   return (
     <Nav>
       <NavContainer>
-        <div>ML</div>
+        <div>LOGO</div>
         {isMobile ? <FullscreenMenu /> : <NavMenu />}
       </NavContainer>
     </Nav>
