@@ -25,6 +25,11 @@ const NavContainer = styled(Container, {
 
 const Navbar: React.FC = () => {
   const isMobile = useUiStore((state) => state.isMobile);
+  const closeFsMenu = useUiStore((state) => state.closeFsMenu);
+
+  useEffect(() => {
+    closeFsMenu();
+  }, [closeFsMenu, isMobile]);
 
   return (
     <Nav>
