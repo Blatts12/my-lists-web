@@ -1,25 +1,41 @@
 import { StyledComponent } from "@stitches/react/types/styled-component";
 import React from "react";
+import { Link } from "react-router-dom";
+import useAuthStore from "../../stores/AuthStore";
 
-interface MenuProps {
-  ItemComponent: StyledComponent<any>;
+interface MenuListProps {
+  ItemComponent: StyledComponent<"li"> | "li";
 }
 
-const AuthMenu = React.memo<MenuProps>(({ ItemComponent }) => {
+const AuthMenu = React.memo<MenuListProps>(({ ItemComponent }) => {
   return (
     <>
-      <ItemComponent>Logout</ItemComponent>
+      <ItemComponent>
+        <Link to="/logout">Logout</Link>
+      </ItemComponent>
     </>
   );
 });
 
-const UnauthMenu = React.memo<MenuProps>(({ ItemComponent }) => {
+const UnauthMenu = React.memo<MenuListProps>(({ ItemComponent }) => {
   return (
     <>
-      <ItemComponent>Login</ItemComponent>
-      <ItemComponent>Register</ItemComponent>
+      <ItemComponent>
+        <Link to="/register">Register</Link>
+      </ItemComponent>
+      <ItemComponent>
+        <Link to="/login">Login</Link>
+      </ItemComponent>
     </>
   );
 });
 
-export { AuthMenu, UnauthMenu };
+const MenuList: React.FC<MenuListProps> = ({ ItemComponent }) => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) return <AuthMenu ItemComponent={ItemComponent} />;
+
+  return <UnauthMenu ItemComponent={ItemComponent} />;
+};
+
+export default MenuList;

@@ -5,7 +5,8 @@ import { FullscreenOverlay } from "../common/Overlay";
 import { Button } from "../common/Button";
 import { styled } from "../../stitches.config";
 import useAuthStore from "../../stores/AuthStore";
-import { AuthMenu, UnauthMenu } from "./MenuList";
+import MenuList from "./MenuList";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NavContainer = styled("nav", {
   display: "flex",
@@ -22,27 +23,32 @@ const UsernameText = styled("p", {
   letterSpacing: "0.0225em",
 });
 
-const MenuList = styled("menu", {
+const Menu = styled("menu", {
   width: "100%",
   padding: "0",
   margin: "0",
 });
 
 const MenuItem = styled("li", {
-  padding: "0.2em 0",
+  padding: "0.215em 0",
   fontSize: "$xxl",
   textAlign: "center",
   transition: "background-color 180ms",
-
   "&:hover": {
     cursor: "pointer",
     backgroundColor: "$uiBackgroundHover",
+  },
+
+  "& a": {
+    display: "block",
+    color: "inherit",
+    textDecoration: "inherit",
   },
 });
 
 const FullscreenMenu: React.FC = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
 
   return (
     <>
@@ -57,33 +63,41 @@ const FullscreenMenu: React.FC = () => {
       >
         <HamburgerMenuIcon width="30px" height="30px" />
       </Button>
-      {showMenu && (
-        <Portal.Root>
-          <FullscreenOverlay color="dark" inPortal />
-
-          <NavContainer>
-            <Button
-              color="primary"
-              icon
-              circled
-              css={{
-                backgroundColor: "inherit",
+      <AnimatePresence>
+        {showMenu && (
+          <Portal.Root asChild>
+            <motion.div
+              style={{ inset: "0" }}
+              initial={{ x: "-100%" }}
+              animate={{ x: "0%" }}
+              exit={{ x: "-100%" }}
+              transition={{
+                duration: 0.215,
               }}
-              onClick={() => setShowMenu(false)}
             >
-              <ArrowLeftIcon width="30px" height="30px" />
-            </Button>
-            <UsernameText>Your username</UsernameText>
-          </NavContainer>
-          <MenuList>
-            {isAuthenticated ? (
-              <AuthMenu ItemComponent={MenuItem} />
-            ) : (
-              <UnauthMenu ItemComponent={MenuItem} />
-            )}
-          </MenuList>
-        </Portal.Root>
-      )}
+              <FullscreenOverlay color="dark" inPortal />
+
+              <NavContainer>
+                <Button
+                  color="primary"
+                  icon
+                  circled
+                  css={{
+                    backgroundColor: "inherit",
+                  }}
+                  onClick={() => setShowMenu(false)}
+                >
+                  <ArrowLeftIcon width="30px" height="30px" />
+                </Button>
+                <UsernameText>{user?.username || "Not logged in"}</UsernameText>
+              </NavContainer>
+              <Menu>
+                <MenuList ItemComponent={MenuItem} />
+              </Menu>
+            </motion.div>
+          </Portal.Root>
+        )}
+      </AnimatePresence>
     </>
   );
 };
