@@ -111,25 +111,4 @@ const Button = styled("button", {
   },
 });
 
-const IconButton = styled(Button, {
-  padding: "0.5em",
-  variants: {
-    circled: {
-      true: {
-        borderRadius: "100%",
-      },
-    },
-    noBackground: {
-      true: {
-        backgroundColor: "none",
-      },
-    },
-    noBorder: {
-      true: {
-        border: "none",
-      },
-    },
-  },
-});
-
 export { Button };
