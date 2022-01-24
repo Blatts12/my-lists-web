@@ -23,12 +23,16 @@ export const {
 } = createStitches({
   theme: {
     colors: {
-      background: indigoDark.indigo1,
       text: indigoDark.indigo12,
       textLight: indigo.indigo12,
 
-      overlayDark: blackA.blackA11,
-      overlayLight: whiteA.whiteA11,
+      background: indigoDark.indigo1,
+
+      borderDark: blackA.blackA8,
+      borderLight: whiteA.whiteA8,
+
+      overlayDark: blackA.blackA12,
+      overlayLight: whiteA.whiteA12,
 
       uiBackground: indigoDark.indigo3,
       uiBackgroundHover: indigoDark.indigo4,

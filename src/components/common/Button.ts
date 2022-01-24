@@ -23,16 +23,6 @@ const Button = styled("button", {
         borderRadius: "100%",
       },
     },
-    noBackground: {
-      true: {
-        backgroundColor: "inherit",
-      },
-    },
-    noBorder: {
-      true: {
-        border: "none",
-      },
-    },
     boldText: {
       true: {
         fontWeight: "bold",
