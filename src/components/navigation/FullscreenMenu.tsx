@@ -7,6 +7,7 @@ import { styled } from "../../stitches.config";
 import useAuthStore from "../../stores/AuthStore";
 import MenuList from "./MenuList";
 import { AnimatePresence, motion } from "framer-motion";
+import useUiStore from "../../stores/UiStore";
 
 const NavContainer = styled("nav", {
   display: "flex",
@@ -47,7 +48,9 @@ const MenuItem = styled("li", {
 });
 
 const FullscreenMenu: React.FC = () => {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const showFsMenu = useUiStore((state) => state.showFsMenu);
+  const openFsMenu = useUiStore((state) => state.openFsMenu);
+  const closeFsMenu = useUiStore((state) => state.closeFsMenu);
   const user = useAuthStore((state) => state.user);
 
   return (
@@ -59,12 +62,12 @@ const FullscreenMenu: React.FC = () => {
         css={{
           backgroundColor: "inherit",
         }}
-        onClick={() => setShowMenu(true)}
+        onClick={openFsMenu}
       >
         <HamburgerMenuIcon width="30px" height="30px" />
       </Button>
       <AnimatePresence>
-        {showMenu && (
+        {showFsMenu && (
           <Portal.Root asChild>
             <motion.div
               style={{ inset: "0" }}
@@ -85,7 +88,7 @@ const FullscreenMenu: React.FC = () => {
                   css={{
                     backgroundColor: "inherit",
                   }}
-                  onClick={() => setShowMenu(false)}
+                  onClick={closeFsMenu}
                 >
                   <ArrowLeftIcon width="30px" height="30px" />
                 </Button>
