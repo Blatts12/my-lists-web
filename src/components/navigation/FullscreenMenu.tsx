@@ -4,6 +4,8 @@ import * as Portal from "@radix-ui/react-portal";
 import { FullscreenOverlay } from "../common/Overlay";
 import { Button } from "../common/Button";
 import { styled } from "../../stitches.config";
+import useAuthStore from "../../stores/AuthStore";
+import { AuthMenu, UnauthMenu } from "./MenuList";
 
 const NavContainer = styled("nav", {
   display: "flex",
@@ -40,6 +42,7 @@ const MenuItem = styled("li", {
 
 const FullscreenMenu: React.FC = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
     <>
@@ -73,8 +76,11 @@ const FullscreenMenu: React.FC = () => {
             <UsernameText>Your username</UsernameText>
           </NavContainer>
           <MenuList>
-            <MenuItem>Login</MenuItem>
-            <MenuItem>Register</MenuItem>
+            {isAuthenticated ? (
+              <AuthMenu ItemComponent={MenuItem} />
+            ) : (
+              <UnauthMenu ItemComponent={MenuItem} />
+            )}
           </MenuList>
         </Portal.Root>
       )}

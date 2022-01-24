@@ -1,5 +1,7 @@
 import React from "react";
 import { styled } from "../../stitches.config";
+import useAuthStore from "../../stores/AuthStore";
+import { AuthMenu, UnauthMenu } from "./MenuList";
 
 const Menu = styled("menu", {
   display: "inline-flex",
@@ -7,10 +9,17 @@ const Menu = styled("menu", {
 });
 
 const NavMenu: React.FC = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  const MenuItem = styled("li", {});
+
   return (
     <Menu>
-      <li>Login</li>
-      <li>Register</li>
+      {isAuthenticated ? (
+        <AuthMenu ItemComponent={MenuItem} />
+      ) : (
+        <UnauthMenu ItemComponent={MenuItem} />
+      )}
     </Menu>
   );
 };
