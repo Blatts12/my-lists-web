@@ -49,7 +49,7 @@ const MenuItem = styled("li", {
 });
 
 const FullscreenMenu: React.FC = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const showFsMenu = useUiStore((state) => state.showFsMenu);
   const openFsMenu = useUiStore((state) => state.openFsMenu);
   const closeFsMenu = useUiStore((state) => state.closeFsMenu);
@@ -57,7 +57,7 @@ const FullscreenMenu: React.FC = () => {
 
   useEffect(() => {
     closeFsMenu();
-  }, [location]);
+  }, [pathname]);
 
   return (
     <>

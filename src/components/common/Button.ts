@@ -5,7 +5,7 @@ const Button = styled("button", {
   alignContent: "center",
   justifyContent: "center",
   width: "fit-content",
-  padding: "0.075em 0.5em",
+  padding: "0.175em 0.5em",
   borderRadius: "0.4em",
   transition: "color 180ms, background-color 180ms, border-color 180ms",
   "&:hover": {
