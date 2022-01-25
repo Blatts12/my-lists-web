@@ -25,7 +25,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   user: null,
   isAuthenticated: false,
 
-  login: async (loginDto: LoginDto) => {
+  login: async (loginDto) => {
     const data = await fetch(`${authApiLink}/login`, {
       method: "POST",
       headers: getContentTypeHeaderJson(),
@@ -63,7 +63,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
 
     return status;
   },
-  register: async (registerDto: RegisterDto) => {
+  register: async (registerDto) => {
     const { password2, ...regData } = registerDto;
     const data = await fetch(`${authApiLink}/register`, {
       method: "POST",
