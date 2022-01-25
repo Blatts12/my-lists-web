@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AppContainer } from "./components/common/Container";
+import ProtectedElement from "./components/common/ProtectedElement";
 import Navbar from "./components/navigation/Navbar";
 import globalStyles from "./globalStyles";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
 import useUiStore from "./stores/UiStore";
 
@@ -33,6 +35,14 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/logout"
+            element={
+              <ProtectedElement>
+                <LogoutPage />
+              </ProtectedElement>
+            }
+          />
         </Routes>
       </AppContainer>
     </>
