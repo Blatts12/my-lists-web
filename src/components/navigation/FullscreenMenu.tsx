@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Portal from "@radix-ui/react-portal";
 import { FullscreenOverlay } from "../common/Overlay";
 import { Button } from "../common/Button";
@@ -8,6 +8,7 @@ import useAuthStore from "../../stores/AuthStore";
 import MenuList from "./MenuList";
 import { AnimatePresence, motion } from "framer-motion";
 import useUiStore from "../../stores/UiStore";
+import { useLocation } from "react-router-dom";
 
 const NavContainer = styled("nav", {
   display: "flex",
@@ -48,10 +49,15 @@ const MenuItem = styled("li", {
 });
 
 const FullscreenMenu: React.FC = () => {
+  const location = useLocation();
   const showFsMenu = useUiStore((state) => state.showFsMenu);
   const openFsMenu = useUiStore((state) => state.openFsMenu);
   const closeFsMenu = useUiStore((state) => state.closeFsMenu);
   const user = useAuthStore((state) => state.user);
+
+  useEffect(() => {
+    closeFsMenu();
+  }, [location]);
 
   return (
     <>
