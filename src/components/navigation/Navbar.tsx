@@ -5,7 +5,7 @@ import { Container } from "../common/Container";
 import FullscreenMenu from "./FullscreenMenu";
 import NavMenu from "./NavMenu";
 
-const Nav = styled("nav", {
+const Header = styled("header", {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -32,12 +32,12 @@ const Navbar: React.FC = () => {
   }, [closeFsMenu, isMobile]);
 
   return (
-    <Nav>
+    <Header>
       <NavContainer>
         <div>LOGO</div>
-        {isMobile ? <FullscreenMenu /> : <NavMenu />}
+        <nav>{isMobile ? <FullscreenMenu /> : <NavMenu />}</nav>
       </NavContainer>
-    </Nav>
+    </Header>
   );
 };
 

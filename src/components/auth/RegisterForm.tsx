@@ -22,74 +22,80 @@ const RegisterForm: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FieldSet>
-        <Label htmlFor="username">Username</Label>
-        <Input
-          id="username"
-          type="text"
-          {...register("username", {
-            required: true,
-            minLength: {
-              value: 5,
-              message: "Username must be at least 5 characters",
-            },
-            maxLength: {
-              value: 64,
-              message: "Username must be at most 64 characters",
-            },
-          })}
-        />
-      </FieldSet>
-      <FieldSet>
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          {...register("email", {
-            required: true,
-          })}
-        />
-      </FieldSet>
-      <FieldSet>
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          {...register("password", {
-            required: true,
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-            maxLength: {
-              value: 64,
-              message: "Password must be at most 64 characters",
-            },
-            pattern: {
-              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%@&? "\']).+$/,
-              message:
-                "Password must contain one small and big letter, one digit and one special character",
-            },
-          })}
-        />
-      </FieldSet>
-      <FieldSet>
-        <Label htmlFor="password2">Confirm Password</Label>
-        <Input
-          id="password2"
-          type="password"
-          {...register("password2", {
-            required: true,
-            validate: (value) => {
-              const { password } = getValues();
-              return password === value || "Passwords should match!";
-            },
-          })}
-        />
-      </FieldSet>
-      <Button type="submit" color="primary" size="l">
-        Register
-      </Button>
+      <main>
+        <header>
+          <h1>Register</h1>
+        </header>
+
+        <FieldSet>
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            type="text"
+            {...register("username", {
+              required: true,
+              minLength: {
+                value: 5,
+                message: "Username must be at least 5 characters",
+              },
+              maxLength: {
+                value: 64,
+                message: "Username must be at most 64 characters",
+              },
+            })}
+          />
+        </FieldSet>
+        <FieldSet>
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            {...register("email", {
+              required: true,
+            })}
+          />
+        </FieldSet>
+        <FieldSet>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            {...register("password", {
+              required: true,
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+              maxLength: {
+                value: 64,
+                message: "Password must be at most 64 characters",
+              },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%@&? "\']).+$/,
+                message:
+                  "Password must contain one small and big letter, one digit and one special character",
+              },
+            })}
+          />
+        </FieldSet>
+        <FieldSet>
+          <Label htmlFor="password2">Confirm Password</Label>
+          <Input
+            id="password2"
+            type="password"
+            {...register("password2", {
+              required: true,
+              validate: (value) => {
+                const { password } = getValues();
+                return password === value || "Passwords should match!";
+              },
+            })}
+          />
+        </FieldSet>
+        <Button type="submit" color="primary" size="l">
+          Register
+        </Button>
+      </main>
     </Form>
   );
 };

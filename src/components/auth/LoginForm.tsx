@@ -19,25 +19,31 @@ const LoginForm: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FieldSet>
-        <Label htmlFor="username">Username</Label>
-        <Input
-          id="username"
-          type="text"
-          {...register("username", { required: true })}
-        />
-      </FieldSet>
-      <FieldSet>
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          {...register("password", { required: true })}
-        />
-      </FieldSet>
-      <Button type="submit" color="primary" size="l">
-        Login
-      </Button>
+      <main>
+        <header>
+          <h1>Login</h1>
+        </header>
+
+        <FieldSet>
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            type="text"
+            {...register("username", { required: true })}
+          />
+        </FieldSet>
+        <FieldSet>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            {...register("password", { required: true })}
+          />
+        </FieldSet>
+        <Button type="submit" color="primary" size="l">
+          Login
+        </Button>
+      </main>
     </Form>
   );
 };

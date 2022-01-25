@@ -20,6 +20,10 @@ const Form = styled("form", {
     marginTop: "0.65rem",
     transform: "translateX(50%)",
   },
+
+  "& h1, & h2": {
+    fontSize: "$xxxl",
+  },
 });
 
 const FieldSet = styled("fieldset", {
