@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { AppContainer, Container } from "./components/common/Container";
-import ProtectedElement from "./components/common/ProtectedElement";
+import { AppContainer } from "./components/common/Container";
 import Navbar from "./components/navigation/Navbar";
 import globalStyles from "./globalStyles";
-import AuthProtPage from "./pages/AuthProtPage";
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import useUiStore from "./stores/UiStore";
 
 const getIsMobile = () => window.innerWidth <= 600;
@@ -29,19 +29,11 @@ const App: React.FC = () => {
     <>
       <AppContainer>
         <Navbar />
-        <Container>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/pp"
-              element={
-                <ProtectedElement>
-                  <AuthProtPage />
-                </ProtectedElement>
-              }
-            />
-          </Routes>
-        </Container>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
       </AppContainer>
     </>
   );

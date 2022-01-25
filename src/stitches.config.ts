@@ -38,6 +38,8 @@ export const {
       uiBackgroundHover: indigoDark.indigo4,
       uiBackgroundSelect: indigoDark.indigo5,
       uiBorder: indigoDark.indigo6,
+      uiBorderInteractive: indigoDark.indigo7,
+      uiBorderActive: indigoDark.indigo7,
       uiText: indigoDark.indigo12,
 
       errorBackground: crimsonDark.crimson3,
