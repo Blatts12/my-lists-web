@@ -12,4 +12,4 @@ const LogoutPage: React.FC = () => {
   return <Navigate to="/" />;
 };
 
-export default LogoutPage;
+export default React.memo(LogoutPage);
