@@ -8,12 +8,14 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
+import useAuthStore from "./stores/AuthStore";
 import useUiStore from "./stores/UiStore";
 
 const getIsMobile = () => window.innerWidth <= 600;
 
 const App: React.FC = () => {
   const setIsMobile = useUiStore((state) => state.setIsMobile);
+  const loadUser = useAuthStore((state) => state.load);
   globalStyles();
 
   useEffect(() => {
@@ -26,6 +28,10 @@ const App: React.FC = () => {
       window.removeEventListener("resize", onResize);
     };
   }, [setIsMobile]);
+
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   return (
     <>

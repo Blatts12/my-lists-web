@@ -19,6 +19,7 @@ interface AuthStore {
   login: (loginDto: LoginDto) => Promise<AuthResponse>;
   logout: () => Promise<number>;
   register: (registerDto: RegisterDto) => Promise<AuthResponse>;
+  load: () => void;
 }
 
 const useAuthStore = create<AuthStore>((set, get) => ({
@@ -79,6 +80,19 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       });
 
     return data;
+  },
+  load: async () => {
+    const data = await fetch(`${authApiLink}/load`, {
+      method: "GET",
+      headers: getContentTypeHeaderJson(),
+      credentials: "include",
+    }).then((res) => res.json());
+
+    if (data.id) {
+      set({ isAuthenticated: true, user: data });
+    } else {
+      set({ isAuthenticated: false, user: null });
+    }
   },
 }));
 
