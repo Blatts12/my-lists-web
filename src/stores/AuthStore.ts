@@ -41,10 +41,10 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       });
 
     if (data.user) {
-      set((state) => ({
+      set({
         user: data.user,
         isAuthenticated: true,
-      }));
+      });
     }
 
     return data;
@@ -56,10 +56,10 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     }).then((response) => response.status);
 
     if (status === 200)
-      set((state) => ({
+      set({
         user: null,
         isAuthenticated: false,
-      }));
+      });
 
     return status;
   },
