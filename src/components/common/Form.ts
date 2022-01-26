@@ -49,4 +49,19 @@ const Input = styled("input", {
   },
 });
 
-export { Form, FieldSet, Label, Input };
+const ErrorText = styled("p", {
+  color: "$errorText",
+  fontSize: "0.95em",
+
+  variants: {
+    nonFieldError: {
+      true: {
+        fontSize: "1.05em",
+        textAlign: "center",
+        marginTop: "10px",
+      },
+    },
+  },
+});
+
+export { Form, FieldSet, Label, Input, ErrorText };

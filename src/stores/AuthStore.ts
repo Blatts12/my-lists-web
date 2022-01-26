@@ -1,24 +1,28 @@
 import create from "zustand";
+import {
+  LoginErrors,
+  RegisterErrors,
+  UserResponse,
+} from "../models/auth/AuthResponse";
 import LoginDto from "../models/auth/LoginDto";
 import RegisterDto from "../models/auth/RegisterDto";
 import { User } from "../models/user/User";
 import getContentTypeHeaderJson from "../utils/ContentTypeJson";
+import {
+  processLoginErrors,
+  processRegisterErrors,
+} from "../utils/ProcessAuthResponseErrors";
 
 const authApiLink = "http://localhost:3000/auth";
-
-interface AuthResponse {
-  user?: User;
-  message?: string | string[];
-  statusCode?: number;
-  error?: string;
-}
 
 interface AuthStore {
   user: User | null;
   isAuthenticated: boolean;
-  login: (loginDto: LoginDto) => Promise<AuthResponse>;
+  login: (loginDto: LoginDto) => Promise<UserResponse | LoginErrors>;
   logout: () => Promise<number>;
-  register: (registerDto: RegisterDto) => Promise<AuthResponse>;
+  register: (
+    registerDto: RegisterDto
+  ) => Promise<UserResponse | RegisterErrors>;
   load: () => void;
 }
 
@@ -37,7 +41,9 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       .catch((err) => {
         console.error(err);
         return {
-          message: "Something went wrong",
+          non_field: "Something went wrong",
+          username: "",
+          password: "",
         };
       });
 
@@ -46,9 +52,9 @@ const useAuthStore = create<AuthStore>((set, get) => ({
         user: data.user,
         isAuthenticated: true,
       });
+      return data;
     }
-
-    return data;
+    return processLoginErrors(data);
   },
   logout: async () => {
     const status = await fetch(`${authApiLink}/logout`, {
@@ -75,11 +81,17 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       .catch((err) => {
         console.error(err);
         return {
-          message: "Something went wrong.",
+          non_field: "Something went wrong.",
+          username: "",
+          password: "",
+          email: "",
         };
       });
 
-    return data;
+    if (data.user) {
+      return data;
+    }
+    return processRegisterErrors(data);
   },
   load: async () => {
     const data = await fetch(`${authApiLink}/load`, {

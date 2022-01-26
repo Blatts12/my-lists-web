@@ -1,23 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { RegisterErrors } from "../../models/auth/AuthResponse";
 import RegisterDto from "../../models/auth/RegisterDto";
 import useAuthStore from "../../stores/AuthStore";
 import { Button } from "../common/Button";
-import { FieldSet, Form, Input, Label } from "../common/Form";
+import { ErrorText, FieldSet, Form, Input, Label } from "../common/Form";
 
 const RegisterForm: React.FC = () => {
+  const [nonFieldError, setNonFieldError] = useState<string>("");
   const registerUser = useAuthStore((state) => state.register);
-  const { register, handleSubmit, reset, getValues } = useForm<RegisterDto>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    setError,
+    formState: { errors },
+  } = useForm<RegisterDto>({
+    mode: "onChange",
+  });
   const navigate = useNavigate();
 
   const onSubmit = async (data: RegisterDto) => {
     const result = await registerUser(data);
 
-    if (result.user) {
+    if ("user" in result) {
       reset();
       navigate("/login");
-    } else console.log(result);
+    } else {
+      const resultErrors = result as RegisterErrors;
+      setError("password", { message: resultErrors.password });
+      setError("username", { message: resultErrors.username });
+      setError("email", { message: resultErrors.email });
+      setNonFieldError(resultErrors.non_field);
+    }
   };
 
   return (
@@ -44,6 +61,7 @@ const RegisterForm: React.FC = () => {
               },
             })}
           />
+          <ErrorText>{errors.username?.message}</ErrorText>
         </FieldSet>
         <FieldSet>
           <Label htmlFor="email">Email</Label>
@@ -54,6 +72,7 @@ const RegisterForm: React.FC = () => {
               required: true,
             })}
           />
+          <ErrorText>{errors.email?.message}</ErrorText>
         </FieldSet>
         <FieldSet>
           <Label htmlFor="password">Password</Label>
@@ -77,6 +96,7 @@ const RegisterForm: React.FC = () => {
               },
             })}
           />
+          <ErrorText>{errors.password?.message}</ErrorText>
         </FieldSet>
         <FieldSet>
           <Label htmlFor="password2">Confirm Password</Label>
@@ -91,10 +111,14 @@ const RegisterForm: React.FC = () => {
               },
             })}
           />
+          <ErrorText>{errors.password2?.message}</ErrorText>
         </FieldSet>
+
         <Button type="submit" color="primary" size="l">
           Register
         </Button>
+
+        <ErrorText nonFieldError>{nonFieldError}</ErrorText>
       </main>
     </Form>
   );

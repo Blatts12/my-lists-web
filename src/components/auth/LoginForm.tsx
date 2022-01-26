@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { LoginErrors } from "../../models/auth/AuthResponse";
 import LoginDto from "../../models/auth/LoginDto";
 import useAuthStore from "../../stores/AuthStore";
 import { Button } from "../common/Button";
-import { FieldSet, Form, Input, Label } from "../common/Form";
+import { ErrorText, FieldSet, Form, Input, Label } from "../common/Form";
 
 const LoginForm: React.FC = () => {
+  const [nonFieldError, setNonFieldError] = useState<string>("");
   const login = useAuthStore((state) => state.login);
-  const { register, handleSubmit, reset } = useForm<LoginDto>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm<LoginDto>();
   const onSubmit = async (data: LoginDto) => {
     const result = await login(data);
 
-    if (result.user) reset();
-    else {
-      console.log(result);
+    if ("user" in result) {
+      reset();
+    } else {
+      const resultErrors = result as LoginErrors;
+      setError("password", { message: resultErrors.password });
+      setError("username", { message: resultErrors.username });
+      setNonFieldError(resultErrors.non_field);
     }
   };
 
@@ -31,6 +43,7 @@ const LoginForm: React.FC = () => {
             type="text"
             {...register("username", { required: true })}
           />
+          <ErrorText>{errors.username?.message}</ErrorText>
         </FieldSet>
         <FieldSet>
           <Label htmlFor="password">Password</Label>
@@ -39,10 +52,14 @@ const LoginForm: React.FC = () => {
             type="password"
             {...register("password", { required: true })}
           />
+          <ErrorText>{errors.password?.message}</ErrorText>
         </FieldSet>
+
         <Button type="submit" color="primary" size="l">
           Login
         </Button>
+
+        <ErrorText nonFieldError>{nonFieldError}</ErrorText>
       </main>
     </Form>
   );
