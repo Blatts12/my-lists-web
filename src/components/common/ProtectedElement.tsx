@@ -10,6 +10,7 @@ const ProtectedElement: React.FC<ProtectedElementProps> = ({ children }) => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const location = useLocation();
 
+  if (isAuthenticated === null) return <>Loading</>;
   if (isAuthenticated) return <>{children}</>;
 
   return <Navigate to="/" state={{ from: location }} />;

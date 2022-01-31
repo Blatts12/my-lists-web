@@ -17,7 +17,7 @@ const authApiLink = "http://localhost:3000/auth";
 
 interface AuthStore {
   user: User | null;
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | null;
   login: (loginDto: LoginDto) => Promise<UserResponse | LoginErrors>;
   logout: () => Promise<number>;
   register: (
@@ -28,7 +28,7 @@ interface AuthStore {
 
 const useAuthStore = create<AuthStore>((set, get) => ({
   user: null,
-  isAuthenticated: false,
+  isAuthenticated: null,
 
   login: async (loginDto) => {
     const data = await fetch(`${authApiLink}/login`, {

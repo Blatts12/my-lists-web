@@ -5,6 +5,8 @@ import ProtectedElement from "./components/common/ProtectedElement";
 import Navbar from "./components/navigation/Navbar";
 import globalStyles from "./globalStyles";
 import HomePage from "./pages/HomePage";
+import ItemPage from "./pages/ItemPage";
+import ListPage from "./pages/ListPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -41,6 +43,22 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/item/:id"
+            element={
+              <ProtectedElement>
+                <ItemPage />
+              </ProtectedElement>
+            }
+          />
+          <Route
+            path="/list/:id"
+            element={
+              <ProtectedElement>
+                <ListPage />
+              </ProtectedElement>
+            }
+          />
           <Route
             path="/logout"
             element={
