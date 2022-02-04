@@ -10,6 +10,7 @@ import ItemPage from "./pages/ItemPage";
 import ListPage from "./pages/ListPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import useAuthStore from "./stores/AuthStore";
 import useUiStore from "./stores/UiStore";
@@ -42,6 +43,7 @@ const App: React.FC = () => {
       <AppContainer>
         <Navbar />
         <Routes>
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
