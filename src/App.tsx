@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
 import { AppContainer } from "./components/common/Container";
 import ProtectedElement from "./components/common/ProtectedElement";
@@ -14,6 +15,7 @@ import useAuthStore from "./stores/AuthStore";
 import useUiStore from "./stores/UiStore";
 
 const getIsMobile = () => window.innerWidth <= 600;
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   const setIsMobile = useUiStore((state) => state.setIsMobile);
@@ -36,7 +38,7 @@ const App: React.FC = () => {
   }, [loadUser]);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <AppContainer>
         <Navbar />
         <Routes>
@@ -69,7 +71,7 @@ const App: React.FC = () => {
           />
         </Routes>
       </AppContainer>
-    </>
+    </QueryClientProvider>
   );
 };
 
