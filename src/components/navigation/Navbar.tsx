@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { styled } from "../../stitches.config";
 import useUiStore from "../../stores/UiStore";
 import { Container } from "../common/Container";
@@ -34,7 +35,7 @@ const Navbar: React.FC = () => {
   return (
     <Header>
       <NavContainer>
-        <div>LOGO</div>
+        <Link to="/">LOGO</Link>
         <nav>{isMobile ? <FullscreenMenu /> : <NavMenu />}</nav>
       </NavContainer>
     </Header>

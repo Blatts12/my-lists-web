@@ -9,6 +9,7 @@ const LatestItemsContainer = styled("section", {
   flexDirection: "column",
   marginInline: "1rem",
   background: "$uiBackground",
+  boxShadow: "1px 1px 4px 0px rgba(0,0,0,0.5)",
   border: "1px solid $uiBorder",
   borderRadius: "10px",
   overflowX: "auto",

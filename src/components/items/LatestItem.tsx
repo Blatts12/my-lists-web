@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Item } from "../../models/item/Item";
 import { styled } from "../../stitches.config";
 
@@ -11,6 +12,7 @@ const ItemContainer = styled("div", {
   gridTemplateColumns: "max-content auto",
   background: "$uiBackgroundSelect",
   borderRadius: "10px",
+  boxShadow: "1px 1px 4px 0px rgba(0,0,0,0.5)",
 });
 
 const Image = styled("img", {
@@ -26,12 +28,20 @@ const InfoContainer = styled("div", {
   padding: "0.5rem",
 });
 
+const TitleLink = styled(Link, {
+  color: "inherit",
+  textDecoration: "none",
+});
+
 const LatestItem: React.FC<LatestItemProps> = ({ item }) => {
   return (
     <ItemContainer>
-      <Image src={item.imageUrl} alt="Image" />
+      <Link to={`/item/${item.id}`}>
+        <Image src={item.imageUrl} alt="Image" />
+      </Link>
+
       <InfoContainer>
-        <p>{item.title}</p>
+        <TitleLink to={`/item/${item.id}`}>{item.title}</TitleLink>
         <p>{item.type.name}</p>
       </InfoContainer>
     </ItemContainer>

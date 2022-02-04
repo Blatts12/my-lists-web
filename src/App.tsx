@@ -45,14 +45,7 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/item/:id"
-            element={
-              <ProtectedElement>
-                <ItemPage />
-              </ProtectedElement>
-            }
-          />
+          <Route path="/item/:id" element={<ItemPage />} />
           <Route
             path="/list/:id"
             element={
